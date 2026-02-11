@@ -1,0 +1,58 @@
+{
+  "kind": "coverage_report",
+  "version": "1.0",
+  "generatedAt": "2026-02-11T02:22:16.675Z",
+  "sources": {
+    "buildRequest": true,
+    "implementationPlan": true
+  },
+  "requirements": {
+    "total": 2,
+    "implemented": 0,
+    "items": [
+      {
+        "id": "REQ-4",
+        "summary": "Add the missing favicon image files referenced by frontend/index.html under frontend/public/assets/generated so the browser can load and display the favicon.",
+        "status": "missing",
+        "plannedFiles": [
+          "frontend/public/assets/generated/favicon-16.dim_16x16.png",
+          "frontend/public/assets/generated/favicon-32.dim_32x32.png",
+          "frontend/public/assets/generated/apple-touch-icon.dim_180x180.png",
+          "frontend/public/assets/generated/android-chrome-192.dim_192x192.png",
+          "frontend/public/assets/generated/android-chrome-512.dim_512x512.png"
+        ],
+        "matchedFiles": []
+      },
+      {
+        "id": "REQ-5",
+        "summary": "Ensure the generated favicon images visually match the app’s existing heart icon style (a centered pink heart on a white circular background) across all required favicon sizes.",
+        "status": "missing",
+        "plannedFiles": [
+          "frontend/public/assets/generated/favicon-16.dim_16x16.png",
+          "frontend/public/assets/generated/favicon-32.dim_32x32.png",
+          "frontend/public/assets/generated/apple-touch-icon.dim_180x180.png",
+          "frontend/public/assets/generated/android-chrome-192.dim_192x192.png",
+          "frontend/public/assets/generated/android-chrome-512.dim_512x512.png"
+        ],
+        "matchedFiles": []
+      }
+    ]
+  },
+  "changedFiles": [
+    "build-request.json",
+    "feature_evidence.json",
+    "frontend-file-summaries.txt",
+    "frontend-implementation-plan.json",
+    "frontend/public/assets/generated/android-chrome-192.dim_192x192.png, 192x192",
+    "frontend/public/assets/generated/android-chrome-512.dim_512x512.png, 512x512",
+    "frontend/public/assets/generated/apple-touch-icon.dim_180x180.png, 180x180",
+    "frontend/public/assets/generated/favicon-16.dim_16x16.png, 16x16",
+    "frontend/public/assets/generated/favicon-32.dim_32x32.png, 32x32",
+    "frontend/src/blob-storage/FileStorage.ts",
+    "frontend/src/blob-storage/StorageClient.ts",
+    "project_state.json",
+    "scratch/component-selection.json",
+    "spec.md",
+    "spec_vs_diff_report.json"
+  ]
+}

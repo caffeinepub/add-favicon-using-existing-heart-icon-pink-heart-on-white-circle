@@ -1,2 +1,3 @@
-# add-favicon-using-existing-heart-icon-pink-heart-on-white-circle
-Exported from Caffeine project: Add favicon using existing heart icon (pink heart on white circle)
+## 
+
+To run app build and run docker image: `docker build -t app . docker run -it --network host app`

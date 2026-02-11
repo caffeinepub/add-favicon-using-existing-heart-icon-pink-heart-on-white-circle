@@ -1,0 +1,72 @@
+{
+  "kind": "build_request",
+  "title": "Regenerate and add missing favicon assets so the favicon displays",
+  "priority": "normal",
+  "requirements": [
+    {
+      "id": "REQ-4",
+      "text": "Add the missing favicon image files referenced by frontend/index.html under frontend/public/assets/generated so the browser can load and display the favicon.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-1"
+        ],
+        "quotes": [
+          "Yes, do, please."
+        ]
+      },
+      "acceptanceCriteria": [
+        "The following files exist at build time in frontend/public/assets/generated: favicon-16.dim_16x16.png, favicon-32.dim_32x32.png, apple-touch-icon.dim_180x180.png, android-chrome-192.dim_192x192.png, android-chrome-512.dim_512x512.png.",
+        "Running the app serves the favicon assets at /assets/generated/<filename> without 404s.",
+        "Opening the deployed app in a fresh/incognito browser session shows the favicon in the tab (and the Apple touch icon is discoverable via the link tag)."
+      ]
+    },
+    {
+      "id": "REQ-5",
+      "text": "Ensure the generated favicon images visually match the app’s existing heart icon style (a centered pink heart on a white circular background) across all required favicon sizes.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-1"
+        ],
+        "quotes": [
+          "I'm not seeing a favicon with my app.",
+          "The favicon is still not showing up."
+        ]
+      },
+      "acceptanceCriteria": [
+        "All generated favicon images depict a centered pink heart on a white circular background.",
+        "The heart remains recognizable and centered at 16x16 and 32x32 sizes (no cropping)."
+      ]
+    }
+  ],
+  "constraints": [
+    "Do not edit any files under frontend/src/components/ui (read-only components).",
+    "Do not modify the Internet Identity hooks in frontend/src/hooks/useInternetIdentity.ts or frontend/src/hooks/useActor.ts (immutable paths).",
+    "Do not introduce any backend changes; this fix is limited to static frontend assets."
+  ],
+  "nonGoals": [
+    "Adding dark mode or other UI/theme changes beyond what is required for the favicon assets to render.",
+    "Changing the existing favicon <link> tags in frontend/index.html unless it is required to match the regenerated asset filenames."
+  ],
+  "imageRequirements": {
+    "required": [
+      "Centered pink heart on a white circular background (favicon-16.dim_16x16.png, 16x16)",
+      "Centered pink heart on a white circular background (favicon-32.dim_32x32.png, 32x32)",
+      "Centered pink heart on a white circular background (apple-touch-icon.dim_180x180.png, 180x180)",
+      "Centered pink heart on a white circular background (android-chrome-192.dim_192x192.png, 192x192)",
+      "Centered pink heart on a white circular background (android-chrome-512.dim_512x512.png, 512x512)"
+    ],
+    "edits": []
+  },
+  "userProfileUpdate": {
+    "goalsToAdd": [],
+    "goalsToRemove": [],
+    "preferencesToAdd": [],
+    "preferencesToRemove": [],
+    "miscToAdd": [],
+    "miscToRemove": [],
+    "fieldsToSet": {},
+    "fieldsToDelete": []
+  }
+}

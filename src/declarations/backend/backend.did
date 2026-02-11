@@ -1,0 +1,207 @@
+type WeightRecord = 
+ record {
+   date: Time;
+   weight: float64;
+ };
+type WeeklyExercisePlan = 
+ record {
+   dailyPlans: vec DailyExercisePlan;
+   weekStartDate: Time;
+ };
+type UserRole = 
+ variant {
+   admin;
+   guest;
+   user;
+ };
+type UserProfile = 
+ record {
+   email: text;
+   name: text;
+   preferences: UserPreferences;
+ };
+type UserPreferences = 
+ record {
+   motivationalStyle: MotivationalStyle;
+   shareProgress: bool;
+ };
+type Time = int;
+type StreakData = 
+ record {
+   currentStreak: nat;
+   maxStreak: nat;
+ };
+type ProgressSummary = 
+ record {
+   exerciseConsistency: float64;
+   measurementChanges: float64;
+   weightLossPercentage: float64;
+ };
+type ProgressPhoto = 
+ record {
+   description: text;
+   filePath: text;
+   uploadDate: Time;
+ };
+type ProgressData = 
+ record {
+   totalCardioCompleted: nat;
+   totalCompletedExercises: nat;
+   totalCoreCompleted: nat;
+   totalResistanceCompleted: nat;
+   totalStretchingCompleted: nat;
+   weeklyProgress: vec ExerciseProgress;
+ };
+type MotivationalType = 
+ variant {
+   daily;
+   monthly;
+   weekly;
+ };
+type MotivationalStyle = 
+ variant {
+   balanced;
+   direct;
+   gentle;
+ };
+type MotivationalSaying = 
+ record {
+   author: text;
+   message: text;
+ };
+type MotivationalMessage = 
+ record {
+   date: Time;
+   message: text;
+   "type": MotivationalType;
+ };
+type MoodEnergyLog = 
+ record {
+   date: Time;
+   energy: int;
+   mood: int;
+ };
+type FileReference = 
+ record {
+   hash: text;
+   path: text;
+ };
+type ExerciseProgress = 
+ record {
+   cardioCompleted: nat;
+   coreCompleted: nat;
+   day: DayOfWeek;
+   resistanceCompleted: nat;
+   stretchingCompleted: nat;
+ };
+type ExerciseEntry = 
+ record {
+   completed: bool;
+   exercise: text;
+   planned: bool;
+ };
+type DayOfWeek = 
+ variant {
+   friday;
+   monday;
+   saturday;
+   sunday;
+   thursday;
+   tuesday;
+   wednesday;
+ };
+type DayInfo = 
+ record {
+   dayOfWeek: DayOfWeek;
+   fullDate: text;
+ };
+type DailyExercisePlan = 
+ record {
+   cardio: vec ExerciseEntry;
+   core: vec ExerciseEntry;
+   day: DayOfWeek;
+   resistance: vec ExerciseEntry;
+   stretching: vec ExerciseEntry;
+ };
+type DailyChecklist = 
+ record {
+   cardio: vec ExerciseEntry;
+   core: vec ExerciseEntry;
+   date: Time;
+   day: DayOfWeek;
+   resistance: vec ExerciseEntry;
+   stretching: vec ExerciseEntry;
+ };
+type CalorieEntry = 
+ record {
+   calories: int;
+   date: Time;
+ };
+type BurnedCalorieSummary = 
+ record {
+   dailyEntries: vec BurnedCalorieEntry;
+   dailyTotal: nat;
+ };
+type BurnedCalorieEntry = 
+ record {
+   caloriesBurned: int;
+   date: Time;
+ };
+type BodyMeasurements = 
+ record {
+   arms: float64;
+   bust: float64;
+   date: Time;
+   hips: float64;
+   legs: float64;
+ };
+service : {
+  addBodyMeasurement: (measurement: BodyMeasurements) -> ();
+  addBurnedCalorieEntry: (entry: BurnedCalorieEntry) -> ();
+  addCalorieEntry: (entry: CalorieEntry) -> ();
+  addMoodEnergyLog: (log: MoodEnergyLog) -> ();
+  addMotivationalMessage: (message: MotivationalMessage) -> ();
+  addProgressPhoto: (photo: ProgressPhoto) -> ();
+  addProgressSummary: (summary: ProgressSummary) -> ();
+  addWeeklyExercisePlan: (plan: WeeklyExercisePlan) -> ();
+  addWeightRecord: ("record": WeightRecord) -> ();
+  assignCallerUserRole: (user: principal, role: UserRole) -> ();
+  deleteCurrentWeek: () -> ();
+  deleteExerciseFromChecklist: (day: DayOfWeek, category: text, index:
+   nat) -> ();
+  deleteExerciseFromPlanner: (weekStartDate: Time, day: DayOfWeek, category:
+   text, index: nat) -> ();
+  deleteProgressPhoto: (filePath: text) -> ();
+  deleteWeeklyExercisePlan: (weekStartDate: Time) -> ();
+  dropFileReference: (path: text) -> ();
+  getBodyMeasurements: () -> (vec BodyMeasurements) query;
+  getBurnedCalorieEntries: () -> (vec BurnedCalorieEntry) query;
+  getBurnedCalorieSummary: () -> (BurnedCalorieSummary) query;
+  getCallerUserProfile: () -> (opt UserProfile) query;
+  getCallerUserRole: () -> (UserRole) query;
+  getCalorieEntries: () -> (vec CalorieEntry) query;
+  getCurrentDayInfo: () -> (DayInfo) query;
+  getDailyChecklists: () -> (vec DailyChecklist) query;
+  getDailyMotivationalSaying: () -> (MotivationalSaying) query;
+  getFileReference: (path: text) -> (FileReference) query;
+  getMoodEnergyLogs: () -> (vec MoodEnergyLog) query;
+  getMotivationalMessages: () -> (vec MotivationalMessage) query;
+  getProgressData: () -> (ProgressData) query;
+  getProgressPhotos: () -> (vec ProgressPhoto) query;
+  getProgressSummaries: () -> (vec ProgressSummary) query;
+  getStreakData: () -> (StreakData) query;
+  getUserProfile: (user: principal) -> (opt UserProfile) query;
+  getWeeklyExercisePlans: () -> (vec WeeklyExercisePlan) query;
+  getWeightRecords: () -> (vec WeightRecord) query;
+  initializeAccessControl: () -> ();
+  isCallerAdmin: () -> (bool) query;
+  listFileReferences: () -> (vec FileReference) query;
+  registerFileReference: (path: text, hash: text) -> ();
+  saveCallerUserProfile: (profile: UserProfile) -> ();
+  toggleExerciseCompletion: (day: DayOfWeek, category: text, index: nat) ->
+   ();
+  updateBodyMeasurement: (index: nat, updatedMeasurement:
+   BodyMeasurements) -> ();
+  updateCalorieEntry: (index: nat, updatedEntry: CalorieEntry) -> ();
+  updateWeightRecord: (index: nat, updatedRecord: WeightRecord) -> ();
+}

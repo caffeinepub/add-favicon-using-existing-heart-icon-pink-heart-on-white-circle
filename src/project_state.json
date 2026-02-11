@@ -1,0 +1,68 @@
+{
+  "schemaVersion": "1.0.0",
+  "projectStateVersion": 7,
+  "summary": "New project",
+  "architectural_notes": [
+    "Deployment decision: publish Draft Version 50 as the live version of the dapp.",
+    "Favicon integration depends on generated favicon image files being present in the project (expected under `/assets/generated/`) to match the `<link>` tags in `frontend/index.html`. Regenerate and add missing favicon assets so browsers can load them."
+  ],
+  "known_issues": [
+    "Favicon not displaying because referenced favicon image files are missing from the project (no generated favicon assets found in expected locations such as `/assets/generated/`)."
+  ],
+  "isFixRequest": true,
+  "imageRequirements": "## Required Images\n- Centered pink heart on a white circular background (favicon-16.dim_16x16.png, 16x16)\n- Centered pink heart on a white circular background (favicon-32.dim_32x32.png, 32x32)\n- Centered pink heart on a white circular background (apple-touch-icon.dim_180x180.png, 180x180)\n- Centered pink heart on a white circular background (android-chrome-192.dim_192x192.png, 192x192)\n- Centered pink heart on a white circular background (android-chrome-512.dim_512x512.png, 512x512)",
+  "existing_features": [
+    {
+      "id": "feature-generate-favicon-image-assets-that-visually-match-the-app-s-existing-heart-icon-style-a-centered-pink-heart-on-a-white-circular-background",
+      "title": "Generate favicon image assets that visually match the app’s existing heart icon style: a centered pink heart on a white circular background.",
+      "reqIds": [
+        "REQ-1"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-wire-the-new-favicon-assets-into-the-app-html-so-browsers-pick-them-up-standard-favicon-apple-touch-icon-update-frontend-index-html-head-to-include-the-correct-link-tags",
+      "title": "Wire the new favicon assets into the app HTML so browsers pick them up (standard favicon + Apple touch icon). Update frontend/index.html head to include the correct <link> tags.",
+      "reqIds": [
+        "REQ-2"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-publish-draft-version-50-as-the-live-version-of-the-dapp-tab-i-e-promote-draft-version-50-to-the-currently-live-version",
+      "title": "Publish Draft Version 50 as the live version of the dapp/tab (i.e., promote Draft Version 50 to the currently live version).",
+      "reqIds": [
+        "REQ-3"
+      ],
+      "version": 1
+    }
+  ],
+  "new_feature_requests": [
+    {
+      "id": "AR-1",
+      "summary": "Create a dapp favicon using the existing front-page heart icon (pink heart) on a white circular background.",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-2",
+      "summary": "Add the missing favicon image files referenced by frontend/index.html under frontend/public/assets/generated so the browser can load and display the favicon.",
+      "reqIds": [
+        "REQ-4"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "AR-3",
+      "summary": "Ensure the generated favicon images visually match the app’s existing heart icon style (a centered pink heart on a white circular background) across all required favicon sizes.",
+      "reqIds": [
+        "REQ-5"
+      ],
+      "status": "pending"
+    }
+  ],
+  "gameProjectType": "none",
+  "projectName": "Add favicon using existing heart icon (pink heart on white circle)",
+  "clarification_mode": "instant",
+  "clarification_rounds": 0
+}
