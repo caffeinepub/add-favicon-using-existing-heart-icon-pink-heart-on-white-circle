@@ -1,10 +1,11 @@
 # Specification
 
 ## Summary
-**Goal:** Ensure the app’s favicon assets exist and display correctly in browsers by adding the missing generated favicon files.
+**Goal:** Fix missing favicon assets and ensure the browser tab displays a crisp, simple pink-heart favicon.
 
 **Planned changes:**
-- Add any missing favicon files referenced by `frontend/index.html` under `frontend/public/assets/generated` so they are served without 404s.
-- Ensure all required favicon assets use the same visual style: a centered pink heart on a white circular background, recognizable at 16x16 and 32x32.
+- Add the missing favicon image files to `frontend/public/assets/generated/` using the exact filenames expected by `frontend/index.html`.
+- Generate a consistent favicon set (simple pink heart on transparent background) at the required sizes, ensuring crisp, centered rendering without any extra background shapes.
+- Verify `frontend/index.html` favicon `<link>` tag paths match the files in `frontend/public/assets/generated/` and update only if needed to align filenames/paths.
 
-**User-visible outcome:** Opening the app in a fresh/incognito session shows the favicon in the browser tab, and the Apple touch icon is discoverable via the existing link tag.
+**User-visible outcome:** After deployment and a hard refresh, the browser tab shows the pink-heart favicon and favicon asset requests return successfully (no 404s).

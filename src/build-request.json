@@ -1,61 +1,84 @@
 {
   "kind": "build_request",
-  "title": "Regenerate and add missing favicon assets so the favicon displays",
+  "title": "Fix missing favicon assets so the pink-heart icon displays in the browser tab",
   "priority": "normal",
   "requirements": [
     {
-      "id": "REQ-4",
-      "text": "Add the missing favicon image files referenced by frontend/index.html under frontend/public/assets/generated so the browser can load and display the favicon.",
+      "id": "REQ-8",
+      "text": "Add the missing favicon image files under `frontend/public/assets/generated/` using the exact filenames referenced by `frontend/index.html` so the browser can successfully load them at runtime.",
       "target": "frontend",
       "source": {
         "messageIds": [
-          "msg-1"
+          "msg-7",
+          "msg-9"
         ],
         "quotes": [
-          "Yes, do, please."
+          "The icon is still not showing on the tap on top of the screen.",
+          "please do"
         ]
       },
       "acceptanceCriteria": [
-        "The following files exist at build time in frontend/public/assets/generated: favicon-16.dim_16x16.png, favicon-32.dim_32x32.png, apple-touch-icon.dim_180x180.png, android-chrome-192.dim_192x192.png, android-chrome-512.dim_512x512.png.",
-        "Running the app serves the favicon assets at /assets/generated/<filename> without 404s.",
-        "Opening the deployed app in a fresh/incognito browser session shows the favicon in the tab (and the Apple touch icon is discoverable via the link tag)."
+        "`frontend/public/assets/generated/` contains all of the following files: `favicon-16.dim_16x16.png`, `favicon-32.dim_32x32.png`, `apple-touch-icon.dim_180x180.png`, `android-chrome-192.dim_192x192.png`, `android-chrome-512.dim_512x512.png`",
+        "In a production build, requesting each of the above paths returns HTTP 200 (not 404)."
       ]
     },
     {
-      "id": "REQ-5",
-      "text": "Ensure the generated favicon images visually match the app’s existing heart icon style (a centered pink heart on a white circular background) across all required favicon sizes.",
+      "id": "REQ-9",
+      "text": "Generate a consistent favicon image set that is a very simple pink heart on a transparent background (no white circular background), exported at the standard favicon sizes used by the app, and ensure each generated image is visually crisp and centered at its target size.",
       "target": "frontend",
       "source": {
         "messageIds": [
-          "msg-1"
+          "msg-8",
+          "msg-9"
         ],
         "quotes": [
-          "I'm not seeing a favicon with my app.",
-          "The favicon is still not showing up."
+          "If you want, I can regenerate the transparent‑pink‑heart favicon set again and make sure the files are actually added this time.",
+          "please do"
         ]
       },
       "acceptanceCriteria": [
-        "All generated favicon images depict a centered pink heart on a white circular background.",
-        "The heart remains recognizable and centered at 16x16 and 32x32 sizes (no cropping)."
+        "Each required favicon file is a simple pink heart on a transparent background, centered within the canvas.",
+        "The 16x16 and 32x32 icons remain recognizable (not overly detailed) and are not clipped.",
+        "No additional background shape (e.g., white circle) is present in the exported assets."
+      ]
+    },
+    {
+      "id": "REQ-10",
+      "text": "Verify that `frontend/index.html` favicon `<link>` tags resolve to the generated assets and keep the filenames/paths aligned with the assets in `frontend/public/assets/generated/` (update the HTML only if needed to match the generated filenames).",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-7",
+          "msg-8"
+        ],
+        "quotes": [
+          "Your `index.html` is expecting files like: ... But the `assets/generated` folder is completely empty.",
+          "HTML is wired correctly, but the actual favicon image files were never created or placed in that folder."
+        ]
+      },
+      "acceptanceCriteria": [
+        "The `href` values in `frontend/index.html` for favicon-related `<link>` tags each correspond to an existing file in `frontend/public`.",
+        "After deployment and a hard refresh, the browser tab shows the new pink-heart favicon (allowing for normal browser favicon caching behavior)."
       ]
     }
   ],
   "constraints": [
-    "Do not edit any files under frontend/src/components/ui (read-only components).",
-    "Do not modify the Internet Identity hooks in frontend/src/hooks/useInternetIdentity.ts or frontend/src/hooks/useActor.ts (immutable paths).",
-    "Do not introduce any backend changes; this fix is limited to static frontend assets."
+    "Frontend immutable paths must not be edited: `frontend/src/hooks/useInternetIdentity.ts`, `frontend/src/hooks/useInternetIdentity.tsx`, `frontend/src/hooks/useActor.ts`, `frontend/src/main.tsx`, `frontend/src/components/ui`.",
+    "Do not introduce new backend canisters or external services; keep the existing single-actor Motoko backend unchanged unless strictly necessary for the favicon fix.",
+    "Store generated images as static assets in `frontend/public/assets/generated/` (do not route image delivery through the backend)."
   ],
   "nonGoals": [
-    "Adding dark mode or other UI/theme changes beyond what is required for the favicon assets to render.",
-    "Changing the existing favicon <link> tags in frontend/index.html unless it is required to match the regenerated asset filenames."
+    "Adding new app features unrelated to favicon display.",
+    "Changing authentication or Internet Identity behavior.",
+    "Replacing the app logo/branding elsewhere in the UI (header, login page, etc.) unless explicitly requested."
   ],
   "imageRequirements": {
     "required": [
-      "Centered pink heart on a white circular background (favicon-16.dim_16x16.png, 16x16)",
-      "Centered pink heart on a white circular background (favicon-32.dim_32x32.png, 32x32)",
-      "Centered pink heart on a white circular background (apple-touch-icon.dim_180x180.png, 180x180)",
-      "Centered pink heart on a white circular background (android-chrome-192.dim_192x192.png, 192x192)",
-      "Centered pink heart on a white circular background (android-chrome-512.dim_512x512.png, 512x512)"
+      "Very simple pink heart on a transparent background (favicon-16.dim_16x16.png, 16x16)",
+      "Very simple pink heart on a transparent background (favicon-32.dim_32x32.png, 32x32)",
+      "Very simple pink heart on a transparent background (apple-touch-icon.dim_180x180.png, 180x180)",
+      "Very simple pink heart on a transparent background (android-chrome-192.dim_192x192.png, 192x192)",
+      "Very simple pink heart on a transparent background (android-chrome-512.dim_512x512.png, 512x512)"
     ],
     "edits": []
   },

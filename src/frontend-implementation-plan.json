@@ -1,76 +1,91 @@
 {
   "kind": "implementation_plan",
   "version": "1.0",
-  "title": "Add missing generated favicon assets and ensure correct heart-style icons",
+  "title": "Restore and align pink-heart favicon static assets",
   "requirements": [
     {
-      "id": "REQ-4",
-      "summary": "Add the missing favicon image files referenced by frontend/index.html under frontend/public/assets/generated so the browser can load and display the favicon.",
+      "id": "REQ-8",
+      "summary": "Add the missing generated favicon image files under frontend/public/assets/generated using the exact filenames referenced by frontend/index.html.",
       "acceptanceCriteria": [
-        "The following files exist at build time in frontend/public/assets/generated: favicon-16.dim_16x16.png, favicon-32.dim_32x32.png, apple-touch-icon.dim_180x180.png, android-chrome-192.dim_192x192.png, android-chrome-512.dim_512x512.png.",
-        "Running the app serves the favicon assets at /assets/generated/<filename> without 404s.",
-        "Opening the deployed app in a fresh/incognito browser session shows the favicon in the tab (and the Apple touch icon is discoverable via the link tag)."
+        "`frontend/public/assets/generated/` contains all of the following files: `favicon-16.dim_16x16.png`, `favicon-32.dim_32x32.png`, `apple-touch-icon.dim_180x180.png`, `android-chrome-192.dim_192x192.png`, `android-chrome-512.dim_512x512.png`",
+        "In a production build, requesting each of the above paths returns HTTP 200 (not 404)."
       ],
       "file_operations": [
         {
           "path": "frontend/public/assets/generated/favicon-16.dim_16x16.png",
           "operation": "create",
-          "description": "Add the generated 16x16 favicon asset at this exact path and filename so the existing <link rel='icon' sizes='16x16'> in frontend/index.html resolves without 404."
+          "description": "Add the 16x16 favicon PNG at this exact path so the existing HTML link tag can load it at runtime."
         },
         {
           "path": "frontend/public/assets/generated/favicon-32.dim_32x32.png",
           "operation": "create",
-          "description": "Add the generated 32x32 favicon asset at this exact path and filename so the existing <link rel='icon' sizes='32x32'> in frontend/index.html resolves without 404."
+          "description": "Add the 32x32 favicon PNG at this exact path so the existing HTML link tag can load it at runtime."
         },
         {
           "path": "frontend/public/assets/generated/apple-touch-icon.dim_180x180.png",
           "operation": "create",
-          "description": "Add the generated Apple touch icon asset at this exact path and filename so the existing <link rel='apple-touch-icon' sizes='180x180'> in frontend/index.html resolves without 404."
+          "description": "Add the 180x180 Apple touch icon PNG at this exact path so the existing HTML link tag can load it at runtime."
         },
         {
           "path": "frontend/public/assets/generated/android-chrome-192.dim_192x192.png",
           "operation": "create",
-          "description": "Add the generated 192x192 icon asset at this exact path and filename so the existing <link rel='icon' sizes='192x192'> in frontend/index.html resolves without 404."
+          "description": "Add the 192x192 Android/Chrome icon PNG at this exact path so the existing HTML link tag can load it at runtime."
         },
         {
           "path": "frontend/public/assets/generated/android-chrome-512.dim_512x512.png",
           "operation": "create",
-          "description": "Add the generated 512x512 icon asset at this exact path and filename so the existing <link rel='icon' sizes='512x512'> in frontend/index.html resolves without 404."
+          "description": "Add the 512x512 Android/Chrome icon PNG at this exact path so the existing HTML link tag can load it at runtime."
         }
       ]
     },
     {
-      "id": "REQ-5",
-      "summary": "Ensure generated favicon images match the existing centered pink heart-on-white-circle style at all required sizes.",
+      "id": "REQ-9",
+      "summary": "Generate a crisp, centered, transparent-background pink-heart favicon set at the standard sizes used by the app.",
       "acceptanceCriteria": [
-        "All generated favicon images depict a centered pink heart on a white circular background.",
-        "The heart remains recognizable and centered at 16x16 and 32x32 sizes (no cropping)."
+        "Each required favicon file is a simple pink heart on a transparent background, centered within the canvas.",
+        "The 16x16 and 32x32 icons remain recognizable (not overly detailed) and are not clipped.",
+        "No additional background shape (e.g., white circle) is present in the exported assets."
       ],
       "file_operations": [
         {
           "path": "frontend/public/assets/generated/favicon-16.dim_16x16.png",
           "operation": "modify",
-          "description": "Regenerate/adjust the 16x16 favicon artwork so it matches the app’s heart icon style (centered pink heart on a white circular background) and remains legible without cropping at 16x16."
+          "description": "Ensure the final 16x16 export is a very simple pink heart on a transparent background, visually crisp and centered, with no white circle/background shape."
         },
         {
           "path": "frontend/public/assets/generated/favicon-32.dim_32x32.png",
           "operation": "modify",
-          "description": "Regenerate/adjust the 32x32 favicon artwork so it matches the app’s heart icon style (centered pink heart on a white circular background) and remains centered and recognizable at 32x32."
+          "description": "Ensure the final 32x32 export is a very simple pink heart on a transparent background, visually crisp and centered, with no white circle/background shape."
         },
         {
           "path": "frontend/public/assets/generated/apple-touch-icon.dim_180x180.png",
           "operation": "modify",
-          "description": "Regenerate/adjust the 180x180 Apple touch icon artwork so it matches the app’s heart icon style (centered pink heart on a white circular background) with appropriate padding/centering."
+          "description": "Ensure the final 180x180 export is a very simple pink heart on a transparent background, visually crisp and centered, with no white circle/background shape."
         },
         {
           "path": "frontend/public/assets/generated/android-chrome-192.dim_192x192.png",
           "operation": "modify",
-          "description": "Regenerate/adjust the 192x192 icon artwork so it matches the app’s heart icon style (centered pink heart on a white circular background) with consistent proportions."
+          "description": "Ensure the final 192x192 export is a very simple pink heart on a transparent background, visually crisp and centered, with no white circle/background shape."
         },
         {
           "path": "frontend/public/assets/generated/android-chrome-512.dim_512x512.png",
           "operation": "modify",
-          "description": "Regenerate/adjust the 512x512 icon artwork so it matches the app’s heart icon style (centered pink heart on a white circular background) with consistent proportions for high-res usage."
+          "description": "Ensure the final 512x512 export is a very simple pink heart on a transparent background, visually crisp and centered, with no white circle/background shape."
+        }
+      ]
+    },
+    {
+      "id": "REQ-10",
+      "summary": "Confirm frontend/index.html favicon link tags resolve to existing generated assets and update HTML only if needed to stay aligned.",
+      "acceptanceCriteria": [
+        "The `href` values in `frontend/index.html` for favicon-related `<link>` tags each correspond to an existing file in `frontend/public`.",
+        "After deployment and a hard refresh, the browser tab shows the new pink-heart favicon (allowing for normal browser favicon caching behavior)."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/index.html",
+          "operation": "modify",
+          "description": "Verify the favicon-related <link> tags reference exactly these static asset paths under frontend/public: frontend/public/assets/generated/favicon-16.dim_16x16.png, frontend/public/assets/generated/favicon-32.dim_32x32.png, frontend/public/assets/generated/apple-touch-icon.dim_180x180.png, frontend/public/assets/generated/android-chrome-192.dim_192x192.png, frontend/public/assets/generated/android-chrome-512.dim_512x512.png. Update the href values only if they do not match the actual generated filenames."
         }
       ]
     }

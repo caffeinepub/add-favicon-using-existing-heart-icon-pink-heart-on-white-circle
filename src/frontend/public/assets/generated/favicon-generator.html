@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Favicon Generator</title>
+    <style>
+        body {
+            font-family: system-ui, -apple-system, sans-serif;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+        .preview {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin: 20px 0;
+        }
+        .preview-item {
+            text-align: center;
+        }
+        canvas {
+            border: 1px solid #ddd;
+            background: repeating-conic-gradient(#f0f0f0 0% 25%, white 0% 50%) 50% / 20px 20px;
+        }
+        button {
+            background: #ec4899;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 16px;
+            margin: 5px;
+        }
+        button:hover {
+            background: #db2777;
+        }
+        .info {
+            background: #fef3c7;
+            padding: 15px;
+            border-radius: 6px;
+            margin: 20px 0;
+            border-left: 4px solid #f59e0b;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎨 Pink Heart Favicon Generator</h1>
+        <div class="info">
+            <strong>Instructions:</strong> Click "Generate All Favicons" to create all required sizes. 
+            Then right-click each canvas and "Save image as..." with the exact filename shown below each preview.
+        </div>
+        
+        <button onclick="generateAll()">Generate All Favicons</button>
+        <button onclick="downloadAll()">Download All (Automatic)</button>
+        
+        <div class="preview" id="preview"></div>
+    </div>
+
+    <script>
+        const sizes = [
+            { size: 16, name: 'favicon-16.dim_16x16.png' },
+            { size: 32, name: 'favicon-32.dim_32x32.png' },
+            { size: 180, name: 'apple-touch-icon.dim_180x180.png' },
+            { size: 192, name: 'android-chrome-192.dim_192x192.png' },
+            { size: 512, name: 'android-chrome-512.dim_512x512.png' }
+        ];
+
+        function drawHeart(ctx, size) {
+            const scale = size / 100;
+            const centerX = size / 2;
+            const centerY = size / 2;
+            
+            ctx.clearRect(0, 0, size, size);
+            
+            // Pink heart color
+            ctx.fillStyle = '#ec4899';
+            
+            ctx.beginPath();
+            
+            // Heart shape using bezier curves
+            const topCurveHeight = size * 0.3;
+            
+            // Start at bottom point
+            ctx.moveTo(centerX, centerY + size * 0.25);
+            
+            // Left side of heart
+            ctx.bezierCurveTo(
+                centerX, centerY - size * 0.1,
+                centerX - size * 0.35, centerY - size * 0.35,
+                centerX - size * 0.25, centerY - size * 0.15
+            );
+            
+            // Left top curve
+            ctx.bezierCurveTo(
+                centerX - size * 0.35, centerY - size * 0.35,
+                centerX - size * 0.45, centerY - size * 0.1,
+                centerX - size * 0.25, centerY + size * 0.05
+            );
+            
+            // Back to center bottom
+            ctx.lineTo(centerX, centerY + size * 0.25);
+            
+            // Right side of heart
+            ctx.bezierCurveTo(
+                centerX + size * 0.25, centerY + size * 0.05,
+                centerX + size * 0.45, centerY - size * 0.1,
+                centerX + size * 0.25, centerY - size * 0.15
+            );
+            
+            // Right top curve
+            ctx.bezierCurveTo(
+                centerX + size * 0.35, centerY - size * 0.35,
+                centerX, centerY - size * 0.1,
+                centerX, centerY + size * 0.25
+            );
+            
+            ctx.closePath();
+            ctx.fill();
+            
+            // Add subtle shadow for depth on larger sizes
+            if (size >= 180) {
+                ctx.shadowColor = 'rgba(236, 72, 153, 0.3)';
+                ctx.shadowBlur = size * 0.02;
+                ctx.shadowOffsetY = size * 0.01;
+                ctx.fill();
+            }
+        }
+
+        function generateFavicon(size, name) {
+            const canvas = document.createElement('canvas');
+            canvas.width = size;
+            canvas.height = size;
+            canvas.title = name;
+            
+            const ctx = canvas.getContext('2d');
+            drawHeart(ctx, size);
+            
+            const container = document.createElement('div');
+            container.className = 'preview-item';
+            
+            const label = document.createElement('div');
+            label.textContent = `${size}x${size}`;
+            label.style.fontWeight = 'bold';
+            label.style.marginBottom = '8px';
+            
+            const filename = document.createElement('div');
+            filename.textContent = name;
+            filename.style.fontSize = '12px';
+            filename.style.color = '#666';
+            filename.style.marginTop = '8px';
+            filename.style.wordBreak = 'break-all';
+            
+            container.appendChild(label);
+            container.appendChild(canvas);
+            container.appendChild(filename);
+            
+            return { container, canvas, name };
+        }
+
+        function generateAll() {
+            const preview = document.getElementById('preview');
+            preview.innerHTML = '';
+            
+            window.generatedCanvases = sizes.map(({ size, name }) => {
+                const result = generateFavicon(size, name);
+                preview.appendChild(result.container);
+                return result;
+            });
+        }
+
+        function downloadAll() {
+            if (!window.generatedCanvases) {
+                generateAll();
+            }
+            
+            window.generatedCanvases.forEach(({ canvas, name }, index) => {
+                setTimeout(() => {
+                    canvas.toBlob((blob) => {
+                        const url = URL.createObjectURL(blob);
+                        const a = document.createElement('a');
+                        a.href = url;
+                        a.download = name;
+                        document.body.appendChild(a);
+                        a.click();
+                        document.body.removeChild(a);
+                        URL.revokeObjectURL(url);
+                    }, 'image/png');
+                }, index * 100);
+            });
+        }
+
+        // Auto-generate on load
+        window.addEventListener('load', generateAll);
+    </script>
+</body>
+</html>
