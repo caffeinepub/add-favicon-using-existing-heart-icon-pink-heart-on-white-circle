@@ -1,91 +1,55 @@
 {
   "kind": "implementation_plan",
   "version": "1.0",
-  "title": "Restore and align pink-heart favicon static assets",
+  "title": "Restore missing favicon assets and ensure index.html references resolve",
   "requirements": [
     {
-      "id": "REQ-8",
-      "summary": "Add the missing generated favicon image files under frontend/public/assets/generated using the exact filenames referenced by frontend/index.html.",
+      "id": "REQ-11",
+      "summary": "Add the missing generated favicon PNGs under frontend/public/assets/generated/ using the exact filenames referenced by frontend/index.html.",
       "acceptanceCriteria": [
-        "`frontend/public/assets/generated/` contains all of the following files: `favicon-16.dim_16x16.png`, `favicon-32.dim_32x32.png`, `apple-touch-icon.dim_180x180.png`, `android-chrome-192.dim_192x192.png`, `android-chrome-512.dim_512x512.png`",
-        "In a production build, requesting each of the above paths returns HTTP 200 (not 404)."
+        "The following files exist in `frontend/public/assets/generated/` and are readable in the built app at the corresponding URLs: `/assets/generated/favicon-16.dim_16x16.png`, `/assets/generated/favicon-32.dim_32x32.png`, `/assets/generated/apple-touch-icon.dim_180x180.png`, `/assets/generated/android-chrome-192.dim_192x192.png`, `/assets/generated/android-chrome-512.dim_512x512.png`.",
+        "Each generated PNG is a crisp, centered, very simple pink heart on a transparent background at its target size (no white circular background)."
       ],
       "file_operations": [
         {
           "path": "frontend/public/assets/generated/favicon-16.dim_16x16.png",
           "operation": "create",
-          "description": "Add the 16x16 favicon PNG at this exact path so the existing HTML link tag can load it at runtime."
+          "description": "Add a 16x16 PNG: crisp, centered, very simple pink heart on a transparent background (no white circular background). Must be readable at runtime via /assets/generated/favicon-16.dim_16x16.png."
         },
         {
           "path": "frontend/public/assets/generated/favicon-32.dim_32x32.png",
           "operation": "create",
-          "description": "Add the 32x32 favicon PNG at this exact path so the existing HTML link tag can load it at runtime."
+          "description": "Add a 32x32 PNG: crisp, centered, very simple pink heart on a transparent background (no white circular background). Must be readable at runtime via /assets/generated/favicon-32.dim_32x32.png."
         },
         {
           "path": "frontend/public/assets/generated/apple-touch-icon.dim_180x180.png",
           "operation": "create",
-          "description": "Add the 180x180 Apple touch icon PNG at this exact path so the existing HTML link tag can load it at runtime."
+          "description": "Add a 180x180 PNG: crisp, centered, very simple pink heart on a transparent background (no white circular background). Must be readable at runtime via /assets/generated/apple-touch-icon.dim_180x180.png."
         },
         {
           "path": "frontend/public/assets/generated/android-chrome-192.dim_192x192.png",
           "operation": "create",
-          "description": "Add the 192x192 Android/Chrome icon PNG at this exact path so the existing HTML link tag can load it at runtime."
+          "description": "Add a 192x192 PNG: crisp, centered, very simple pink heart on a transparent background (no white circular background). Must be readable at runtime via /assets/generated/android-chrome-192.dim_192x192.png."
         },
         {
           "path": "frontend/public/assets/generated/android-chrome-512.dim_512x512.png",
           "operation": "create",
-          "description": "Add the 512x512 Android/Chrome icon PNG at this exact path so the existing HTML link tag can load it at runtime."
+          "description": "Add a 512x512 PNG: crisp, centered, very simple pink heart on a transparent background (no white circular background). Must be readable at runtime via /assets/generated/android-chrome-512.dim_512x512.png."
         }
       ]
     },
     {
-      "id": "REQ-9",
-      "summary": "Generate a crisp, centered, transparent-background pink-heart favicon set at the standard sizes used by the app.",
+      "id": "REQ-12",
+      "summary": "Ensure frontend/index.html favicon link tags match the actual generated asset filenames and paths under /assets/generated/.",
       "acceptanceCriteria": [
-        "Each required favicon file is a simple pink heart on a transparent background, centered within the canvas.",
-        "The 16x16 and 32x32 icons remain recognizable (not overly detailed) and are not clipped.",
-        "No additional background shape (e.g., white circle) is present in the exported assets."
-      ],
-      "file_operations": [
-        {
-          "path": "frontend/public/assets/generated/favicon-16.dim_16x16.png",
-          "operation": "modify",
-          "description": "Ensure the final 16x16 export is a very simple pink heart on a transparent background, visually crisp and centered, with no white circle/background shape."
-        },
-        {
-          "path": "frontend/public/assets/generated/favicon-32.dim_32x32.png",
-          "operation": "modify",
-          "description": "Ensure the final 32x32 export is a very simple pink heart on a transparent background, visually crisp and centered, with no white circle/background shape."
-        },
-        {
-          "path": "frontend/public/assets/generated/apple-touch-icon.dim_180x180.png",
-          "operation": "modify",
-          "description": "Ensure the final 180x180 export is a very simple pink heart on a transparent background, visually crisp and centered, with no white circle/background shape."
-        },
-        {
-          "path": "frontend/public/assets/generated/android-chrome-192.dim_192x192.png",
-          "operation": "modify",
-          "description": "Ensure the final 192x192 export is a very simple pink heart on a transparent background, visually crisp and centered, with no white circle/background shape."
-        },
-        {
-          "path": "frontend/public/assets/generated/android-chrome-512.dim_512x512.png",
-          "operation": "modify",
-          "description": "Ensure the final 512x512 export is a very simple pink heart on a transparent background, visually crisp and centered, with no white circle/background shape."
-        }
-      ]
-    },
-    {
-      "id": "REQ-10",
-      "summary": "Confirm frontend/index.html favicon link tags resolve to existing generated assets and update HTML only if needed to stay aligned.",
-      "acceptanceCriteria": [
-        "The `href` values in `frontend/index.html` for favicon-related `<link>` tags each correspond to an existing file in `frontend/public`.",
-        "After deployment and a hard refresh, the browser tab shows the new pink-heart favicon (allowing for normal browser favicon caching behavior)."
+        "`frontend/index.html` contains favicon `<link>` tags whose `href` paths resolve to existing files in `frontend/public/assets/generated/` after build.",
+        "After deployment, the favicon appears in the browser tab (after a normal refresh; if browser cache persists, it appears after a hard refresh)."
       ],
       "file_operations": [
         {
           "path": "frontend/index.html",
           "operation": "modify",
-          "description": "Verify the favicon-related <link> tags reference exactly these static asset paths under frontend/public: frontend/public/assets/generated/favicon-16.dim_16x16.png, frontend/public/assets/generated/favicon-32.dim_32x32.png, frontend/public/assets/generated/apple-touch-icon.dim_180x180.png, frontend/public/assets/generated/android-chrome-192.dim_192x192.png, frontend/public/assets/generated/android-chrome-512.dim_512x512.png. Update the href values only if they do not match the actual generated filenames."
+          "description": "Verify the existing favicon <link> tags resolve to the created files under /assets/generated/ (favicon-16.dim_16x16.png, favicon-32.dim_32x32.png, apple-touch-icon.dim_180x180.png, android-chrome-192.dim_192x192.png, android-chrome-512.dim_512x512.png). Update href values only if any reference does not exactly match the on-disk filenames/paths after build."
         }
       ]
     }

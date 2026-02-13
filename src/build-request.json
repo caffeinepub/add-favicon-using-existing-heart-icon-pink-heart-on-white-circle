@@ -1,76 +1,56 @@
 {
   "kind": "build_request",
-  "title": "Fix missing favicon assets so the pink-heart icon displays in the browser tab",
-  "priority": "normal",
+  "title": "Fix missing favicon assets so the browser tab icon displays",
+  "priority": "high",
   "requirements": [
     {
-      "id": "REQ-8",
-      "text": "Add the missing favicon image files under `frontend/public/assets/generated/` using the exact filenames referenced by `frontend/index.html` so the browser can successfully load them at runtime.",
+      "id": "REQ-11",
+      "text": "Add the missing favicon image files to `frontend/public/assets/generated/` using the exact filenames referenced by `frontend/index.html` so the browser can successfully load them at runtime.",
       "target": "frontend",
       "source": {
         "messageIds": [
-          "msg-7",
-          "msg-9"
+          "msg-6",
+          "msg-8"
         ],
         "quotes": [
-          "The icon is still not showing on the tap on top of the screen.",
-          "please do"
+          "The favicon is still not showing up. Why is that? What can you do to fix it?",
+          "Go ahead and start and see if you can get it this time."
         ]
       },
       "acceptanceCriteria": [
-        "`frontend/public/assets/generated/` contains all of the following files: `favicon-16.dim_16x16.png`, `favicon-32.dim_32x32.png`, `apple-touch-icon.dim_180x180.png`, `android-chrome-192.dim_192x192.png`, `android-chrome-512.dim_512x512.png`",
-        "In a production build, requesting each of the above paths returns HTTP 200 (not 404)."
+        "The following files exist in `frontend/public/assets/generated/` and are readable in the built app at the corresponding URLs: `/assets/generated/favicon-16.dim_16x16.png`, `/assets/generated/favicon-32.dim_32x32.png`, `/assets/generated/apple-touch-icon.dim_180x180.png`, `/assets/generated/android-chrome-192.dim_192x192.png`, `/assets/generated/android-chrome-512.dim_512x512.png`.",
+        "Each generated PNG is a crisp, centered, very simple pink heart on a transparent background at its target size (no white circular background)."
       ]
     },
     {
-      "id": "REQ-9",
-      "text": "Generate a consistent favicon image set that is a very simple pink heart on a transparent background (no white circular background), exported at the standard favicon sizes used by the app, and ensure each generated image is visually crisp and centered at its target size.",
+      "id": "REQ-12",
+      "text": "Verify that `frontend/index.html` favicon `<link>` tags match the generated asset filenames and paths under `/assets/generated/`, and update `frontend/index.html` only if needed to keep the HTML references aligned with the actual files.",
       "target": "frontend",
       "source": {
         "messageIds": [
-          "msg-8",
-          "msg-9"
-        ],
-        "quotes": [
-          "If you want, I can regenerate the transparent‑pink‑heart favicon set again and make sure the files are actually added this time.",
-          "please do"
-        ]
-      },
-      "acceptanceCriteria": [
-        "Each required favicon file is a simple pink heart on a transparent background, centered within the canvas.",
-        "The 16x16 and 32x32 icons remain recognizable (not overly detailed) and are not clipped.",
-        "No additional background shape (e.g., white circle) is present in the exported assets."
-      ]
-    },
-    {
-      "id": "REQ-10",
-      "text": "Verify that `frontend/index.html` favicon `<link>` tags resolve to the generated assets and keep the filenames/paths aligned with the assets in `frontend/public/assets/generated/` (update the HTML only if needed to match the generated filenames).",
-      "target": "frontend",
-      "source": {
-        "messageIds": [
+          "msg-6",
           "msg-7",
           "msg-8"
         ],
         "quotes": [
-          "Your `index.html` is expecting files like: ... But the `assets/generated` folder is completely empty.",
-          "HTML is wired correctly, but the actual favicon image files were never created or placed in that folder."
+          "The favicon is still not showing up. Why is that? What can you do to fix it?",
+          "Please fix it.",
+          "Go ahead and start and see if you can get it this time."
         ]
       },
       "acceptanceCriteria": [
-        "The `href` values in `frontend/index.html` for favicon-related `<link>` tags each correspond to an existing file in `frontend/public`.",
-        "After deployment and a hard refresh, the browser tab shows the new pink-heart favicon (allowing for normal browser favicon caching behavior)."
+        "`frontend/index.html` contains favicon `<link>` tags whose `href` paths resolve to existing files in `frontend/public/assets/generated/` after build.",
+        "After deployment, the favicon appears in the browser tab (after a normal refresh; if browser cache persists, it appears after a hard refresh)."
       ]
     }
   ],
   "constraints": [
-    "Frontend immutable paths must not be edited: `frontend/src/hooks/useInternetIdentity.ts`, `frontend/src/hooks/useInternetIdentity.tsx`, `frontend/src/hooks/useActor.ts`, `frontend/src/main.tsx`, `frontend/src/components/ui`.",
-    "Do not introduce new backend canisters or external services; keep the existing single-actor Motoko backend unchanged unless strictly necessary for the favicon fix.",
-    "Store generated images as static assets in `frontend/public/assets/generated/` (do not route image delivery through the backend)."
+    "Do not edit any files under the frontend immutable paths listed in SYSTEM_CONTEXT (e.g., `frontend/src/main.tsx`, `frontend/src/hooks/useActor.ts`, `frontend/src/hooks/useInternetIdentity.ts`, and anything under `frontend/src/components/ui`).",
+    "Backend changes are not required for this fix; keep the backend single-actor architecture unchanged."
   ],
   "nonGoals": [
-    "Adding new app features unrelated to favicon display.",
-    "Changing authentication or Internet Identity behavior.",
-    "Replacing the app logo/branding elsewhere in the UI (header, login page, etc.) unless explicitly requested."
+    "Do not add new product features unrelated to favicon display.",
+    "Do not introduce third-party services or external build pipelines for favicon generation."
   ],
   "imageRequirements": {
     "required": [

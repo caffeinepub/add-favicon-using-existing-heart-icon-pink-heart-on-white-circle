@@ -1,15 +1,15 @@
 {
   "schemaVersion": "1.0.0",
-  "projectStateVersion": 11,
-  "summary": "Fix favicon not displaying in the now-live Version 53 by generating a new simple pink heart favicon set (transparent background) at standard sizes and ensuring the referenced files exist under `/assets/generated/` so browsers load it.",
+  "projectStateVersion": 13,
+  "summary": "Fix favicon not displaying in the now-live Version 54 by generating a new simple pink heart favicon set (transparent background) at standard sizes and ensuring the referenced files exist under `/assets/generated/` (or `frontend/public/assets/generated/`) so browsers can load it.",
   "architectural_notes": [
     "Favicon integration depends on generated favicon image files being present in the project (expected under `/assets/generated/`) to match the `<link>` tags in `frontend/index.html`. Regenerate and add missing favicon assets so browsers can load them.",
     "New favicon direction: use a simple pink heart on a transparent background (Fabricant) instead of the prior white circular background; replace existing favicon assets and corresponding HTML link targets accordingly.",
-    "Deployment decision: Version 53 has been released to production (replacing the prior live version)."
+    "Deployment decision: Version 54 has been released to production (replacing Version 53)."
   ],
   "known_issues": [
     "Favicon not displaying because referenced favicon image files are missing from the project (no generated favicon assets found in expected locations such as `/assets/generated/`).",
-    "After releasing Version 53, the favicon still does not appear (browser tab icon), consistent with missing generated favicon assets at the paths referenced by `frontend/index.html`."
+    "After releasing Version 54, the favicon still does not appear (browser tab icon), consistent with missing/mismatched generated favicon assets at the paths referenced by `frontend/index.html`."
   ],
   "isFixRequest": true,
   "imageRequirements": "## Required Images\n- Very simple pink heart on a transparent background (favicon-16.dim_16x16.png, 16x16)\n- Very simple pink heart on a transparent background (favicon-32.dim_32x32.png, 32x32)\n- Very simple pink heart on a transparent background (apple-touch-icon.dim_180x180.png, 180x180)\n- Very simple pink heart on a transparent background (android-chrome-192.dim_192x192.png, 192x192)\n- Very simple pink heart on a transparent background (android-chrome-512.dim_512x512.png, 512x512)",
@@ -105,6 +105,22 @@
       "summary": "Verify that `frontend/index.html` favicon `<link>` tags resolve to the generated assets and keep the filenames/paths aligned with the assets in `frontend/public/assets/generated/` (update the HTML only if needed to match the generated filenames).",
       "reqIds": [
         "REQ-10"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "AR-10",
+      "summary": "Add the missing favicon image files to `frontend/public/assets/generated/` using the exact filenames referenced by `frontend/index.html` so the browser can successfully load them at runtime.",
+      "reqIds": [
+        "REQ-11"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "AR-11",
+      "summary": "Verify that `frontend/index.html` favicon `<link>` tags match the generated asset filenames and paths under `/assets/generated/`, and update `frontend/index.html` only if needed to keep the HTML references aligned with the actual files.",
+      "reqIds": [
+        "REQ-12"
       ],
       "status": "pending"
     }

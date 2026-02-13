@@ -19,8 +19,8 @@
   "frontend/src/components/ProfileEditDialog.tsx": "Reusable dialog component for editing user profile information including name, email, motivational style preferences, and sharing settings with form validation and save functionality.",
   "frontend/index.html": "HTML entry point with favicon and app icon link tags for multiple sizes (16x16, 32x32, 180x180, 192x192, 512x512) referencing generated pink heart on white circle assets.",
   "frontend/ops/publish-draft-50-to-live.md": "Runbook documentation describing the operational steps to promote Draft Version 50 to the live/production environment, including verification, promotion procedures, and rollback plans.",
-  "frontend/src/blob-storage/FileStorage.ts": "Deleted - prefabricated component that depends on missing backend blob storage interface methods.",
-  "frontend/src/blob-storage/StorageClient.ts": "Deleted - prefabricated component that depends on missing backend blob storage interface methods.",
+  "frontend/src/blob-storage/FileStorage.ts": "Deleted (depends on missing backend blob storage methods)",
+  "frontend/src/blob-storage/StorageClient.ts": "Deleted (depends on missing backend blob storage methods)",
   "frontend/public/assets/generated/favicon-generator.html": "Standalone HTML tool that generates all required pink heart favicon PNG files using Canvas API, with preview and download functionality for all sizes (16x16, 32x32, 180x180, 192x192, 512x512).",
   "frontend/src/lib/generate-favicons.ts": "TypeScript utility module that programmatically generates pink heart favicon images at various sizes using Canvas API and provides download functionality."
 }
