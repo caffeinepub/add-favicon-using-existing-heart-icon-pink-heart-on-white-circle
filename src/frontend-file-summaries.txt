@@ -22,5 +22,5 @@
   "frontend/src/blob-storage/FileStorage.ts": "Deleted (depends on missing backend blob storage methods)",
   "frontend/src/blob-storage/StorageClient.ts": "Deleted (depends on missing backend blob storage methods)",
   "frontend/public/assets/generated/favicon-generator.html": "Standalone HTML tool that generates all required pink heart favicon PNG files using Canvas API, with preview and download functionality for all sizes (16x16, 32x32, 180x180, 192x192, 512x512).",
-  "frontend/src/lib/generate-favicons.ts": "TypeScript utility module that programmatically generates pink heart favicon images at various sizes using Canvas API and provides download functionality."
+  "frontend/src/lib/generate-favicons.ts": "TypeScript utility module that programmatically generates pink heart favicon images at various sizes using Canvas API with a solid white circular background, and provides download functionality."
 }

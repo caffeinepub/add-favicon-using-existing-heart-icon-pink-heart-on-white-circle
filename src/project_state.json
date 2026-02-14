@@ -1,18 +1,18 @@
 {
   "schemaVersion": "1.0.0",
-  "projectStateVersion": 13,
-  "summary": "Fix favicon not displaying in the now-live Version 54 by generating a new simple pink heart favicon set (transparent background) at standard sizes and ensuring the referenced files exist under `/assets/generated/` (or `frontend/public/assets/generated/`) so browsers can load it.",
+  "projectStateVersion": 15,
+  "summary": "Fix favicon not displaying in now-live Version 55 by regenerating a favicon set using the pink heart on a white circular background at standard sizes, replacing all existing favicon assets, and updating `frontend/index.html` `<link>` tags/filenames so the referenced files exist under `/assets/generated/` (or `frontend/public/assets/generated/`) and browsers can load them.",
   "architectural_notes": [
     "Favicon integration depends on generated favicon image files being present in the project (expected under `/assets/generated/`) to match the `<link>` tags in `frontend/index.html`. Regenerate and add missing favicon assets so browsers can load them.",
-    "New favicon direction: use a simple pink heart on a transparent background (Fabricant) instead of the prior white circular background; replace existing favicon assets and corresponding HTML link targets accordingly.",
-    "Deployment decision: Version 54 has been released to production (replacing Version 53)."
+    "Decision: Use the pink heart on a white circular background for favicon assets going forward; replace all existing favicon assets and update HTML filenames/paths to match the regenerated set.",
+    "Deployment decision: Version 55 has been released to production (replacing Version 54)."
   ],
   "known_issues": [
     "Favicon not displaying because referenced favicon image files are missing from the project (no generated favicon assets found in expected locations such as `/assets/generated/`).",
-    "After releasing Version 54, the favicon still does not appear (browser tab icon), consistent with missing/mismatched generated favicon assets at the paths referenced by `frontend/index.html`."
+    "After releasing Version 55, the favicon still may not appear until the regenerated favicon assets (heart on white circle) are present and `frontend/index.html` references are updated to match."
   ],
   "isFixRequest": true,
-  "imageRequirements": "## Required Images\n- Very simple pink heart on a transparent background (favicon-16.dim_16x16.png, 16x16)\n- Very simple pink heart on a transparent background (favicon-32.dim_32x32.png, 32x32)\n- Very simple pink heart on a transparent background (apple-touch-icon.dim_180x180.png, 180x180)\n- Very simple pink heart on a transparent background (android-chrome-192.dim_192x192.png, 192x192)\n- Very simple pink heart on a transparent background (android-chrome-512.dim_512x512.png, 512x512)",
+  "imageRequirements": "## Required Images\n- Centered pink heart on a solid white circular background (favicon-16.dim_16x16.png, 16x16)\n- Centered pink heart on a solid white circular background (favicon-32.dim_32x32.png, 32x32)\n- Centered pink heart on a solid white circular background (apple-touch-icon.dim_180x180.png, 180x180)\n- Centered pink heart on a solid white circular background (android-chrome-192.dim_192x192.png, 192x192)\n- Centered pink heart on a solid white circular background (android-chrome-512.dim_512x512.png, 512x512)",
   "existing_features": [
     {
       "id": "feature-generate-favicon-image-assets-that-visually-match-the-app-s-existing-heart-icon-style-a-centered-pink-heart-on-a-white-circular-background",
@@ -45,6 +45,22 @@
         "REQ-6"
       ],
       "version": 1
+    },
+    {
+      "id": "feature-regenerate-a-complete-favicon-image-set-that-matches-the-app-s-chosen-style-a-centered-pink-heart-on-a-solid-white-circular-background-exported-as-pngs-in-all-sizes-referenced-by-frontend-index-html-and-add-them-to-frontend-public-assets-generated-using-the-exact-filenames-referenced-by-the-html",
+      "title": "Regenerate a complete favicon image set that matches the app’s chosen style: a centered pink heart on a solid white circular background, exported as PNGs in all sizes referenced by `frontend/index.html`, and add them to `frontend/public/assets/generated/` using the exact filenames referenced by the HTML.",
+      "reqIds": [
+        "REQ-13"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-update-the-favicon-generation-utility-frontend-src-lib-generate-favicons-ts-so-that-its-output-matches-the-selected-style-pink-heart-on-a-white-circular-background-and-remains-aligned-with-the-favicon-sizes-filenames-used-by-frontend-index-html",
+      "title": "Update the favicon generation utility (`frontend/src/lib/generate-favicons.ts`) so that its output matches the selected style (pink heart on a white circular background) and remains aligned with the favicon sizes/filenames used by `frontend/index.html`.",
+      "reqIds": [
+        "REQ-15"
+      ],
+      "version": 1
     }
   ],
   "new_feature_requests": [
@@ -71,32 +87,10 @@
       "status": "pending"
     },
     {
-      "id": "AR-4",
-      "summary": "Generate a new simple pink heart favicon (Fabricant) with transparent background in standard favicon sizes and replace existing favicon assets/links so it displays correctly.",
-      "reqIds": [],
-      "status": "pending"
-    },
-    {
-      "id": "AR-6",
-      "summary": "Ensure the app’s favicon HTML wiring points to the generated transparent-heart assets and that the referenced paths in `frontend/index.html` resolve to existing files at runtime (replacing any previous favicon assets as needed).",
-      "reqIds": [
-        "REQ-7"
-      ],
-      "status": "pending"
-    },
-    {
       "id": "AR-7",
       "summary": "Add the missing favicon image files under `frontend/public/assets/generated/` using the exact filenames referenced by `frontend/index.html` so the browser can successfully load them at runtime.",
       "reqIds": [
         "REQ-8"
-      ],
-      "status": "pending"
-    },
-    {
-      "id": "AR-8",
-      "summary": "Generate a consistent favicon image set that is a very simple pink heart on a transparent background (no white circular background), exported at the standard favicon sizes used by the app, and ensure each generated image is visually crisp and centered at its target size.",
-      "reqIds": [
-        "REQ-9"
       ],
       "status": "pending"
     },
@@ -123,10 +117,24 @@
         "REQ-12"
       ],
       "status": "pending"
+    },
+    {
+      "id": "AR-12",
+      "summary": "Regenerate favicon assets using a pink heart on a white circular background, replace all existing favicon assets, and update `frontend/index.html` to reference the new filenames/paths so the favicon displays correctly.",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-14",
+      "summary": "Update `frontend/index.html` favicon `<link>` tags to fully match the regenerated favicon set (paths, filenames, and sizes), replacing any existing favicon link tags so browsers load the new assets correctly.",
+      "reqIds": [
+        "REQ-14"
+      ],
+      "status": "pending"
     }
   ],
   "gameProjectType": "none",
-  "projectName": "Add favicon using existing heart icon (pink heart on white circle)",
+  "projectName": "Fix favicon assets + update HTML (pink heart on white circle)",
   "clarification_mode": "instant",
   "clarification_rounds": 0
 }

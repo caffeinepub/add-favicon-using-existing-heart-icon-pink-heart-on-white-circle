@@ -1,4 +1,45 @@
 {
   "kind": "feature_evidence_report",
-  "features": []
+  "features": [
+    {
+      "featureId": "feature-regenerate-a-complete-favicon-image-set-that-matches-the-app-s-chosen-style-a-centered-pink-heart-on-a-solid-white-circular-background-exported-as-pngs-in-all-sizes-referenced-by-frontend-index-html-and-add-them-to-frontend-public-assets-generated-using-the-exact-filenames-referenced-by-the-html",
+      "featureTitle": "Regenerate a complete favicon image set that matches the app’s chosen style: a centered pink heart on a solid white circular background, exported as PNGs in all sizes referenced by `frontend/index.html`, and add them to `frontend/public/assets/generated/` using the exact filenames referenced by the HTML.",
+      "files": [
+        "frontend/public/favicon.ico"
+      ],
+      "components": [
+        "authorization@1.0.1",
+        "blob-storage@1.1.2",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-13"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-update-the-favicon-generation-utility-frontend-src-lib-generate-favicons-ts-so-that-its-output-matches-the-selected-style-pink-heart-on-a-white-circular-background-and-remains-aligned-with-the-favicon-sizes-filenames-used-by-frontend-index-html",
+      "featureTitle": "Update the favicon generation utility (`frontend/src/lib/generate-favicons.ts`) so that its output matches the selected style (pink heart on a white circular background) and remains aligned with the favicon sizes/filenames used by `frontend/index.html`.",
+      "files": [
+        "frontend/src/lib/generate-favicons.ts"
+      ],
+      "components": [
+        "authorization@1.0.1",
+        "blob-storage@1.1.2",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-15"
+      ],
+      "confidence": "high"
+    }
+  ]
 }

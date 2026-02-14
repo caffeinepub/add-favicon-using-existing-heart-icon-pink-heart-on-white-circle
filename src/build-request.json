@@ -1,64 +1,81 @@
 {
   "kind": "build_request",
-  "title": "Fix missing favicon assets so the browser tab icon displays",
-  "priority": "high",
+  "title": "Fix missing favicon by regenerating heart-on-white-circle assets and aligning HTML links",
+  "priority": "normal",
   "requirements": [
     {
-      "id": "REQ-11",
-      "text": "Add the missing favicon image files to `frontend/public/assets/generated/` using the exact filenames referenced by `frontend/index.html` so the browser can successfully load them at runtime.",
+      "id": "REQ-13",
+      "text": "Regenerate a complete favicon image set that matches the app’s chosen style: a centered pink heart on a solid white circular background, exported as PNGs in all sizes referenced by `frontend/index.html`, and add them to `frontend/public/assets/generated/` using the exact filenames referenced by the HTML.",
       "target": "frontend",
       "source": {
         "messageIds": [
-          "msg-6",
-          "msg-8"
+          "msg-1"
         ],
         "quotes": [
-          "The favicon is still not showing up. Why is that? What can you do to fix it?",
-          "Go ahead and start and see if you can get it this time."
+          "fix the missing favicon assets and update the HTML so the favicon displays correctly.",
+          "1) the pink heart with white circular background",
+          "2) Replace all"
         ]
       },
       "acceptanceCriteria": [
-        "The following files exist in `frontend/public/assets/generated/` and are readable in the built app at the corresponding URLs: `/assets/generated/favicon-16.dim_16x16.png`, `/assets/generated/favicon-32.dim_32x32.png`, `/assets/generated/apple-touch-icon.dim_180x180.png`, `/assets/generated/android-chrome-192.dim_192x192.png`, `/assets/generated/android-chrome-512.dim_512x512.png`.",
-        "Each generated PNG is a crisp, centered, very simple pink heart on a transparent background at its target size (no white circular background)."
+        "The following files exist in `frontend/public/assets/generated/`: `favicon-16.dim_16x16.png`, `favicon-32.dim_32x32.png`, `apple-touch-icon.dim_180x180.png`, `android-chrome-192.dim_192x192.png`, `android-chrome-512.dim_512x512.png`.",
+        "Each generated PNG visually shows a crisp, centered pink heart on a solid white circular background (no transparent background).",
+        "Any previous/old favicon assets are removed or no longer referenced, so only the new favicon set is used by the app."
       ]
     },
     {
-      "id": "REQ-12",
-      "text": "Verify that `frontend/index.html` favicon `<link>` tags match the generated asset filenames and paths under `/assets/generated/`, and update `frontend/index.html` only if needed to keep the HTML references aligned with the actual files.",
+      "id": "REQ-14",
+      "text": "Update `frontend/index.html` favicon `<link>` tags to fully match the regenerated favicon set (paths, filenames, and sizes), replacing any existing favicon link tags so browsers load the new assets correctly.",
       "target": "frontend",
       "source": {
         "messageIds": [
-          "msg-6",
-          "msg-7",
-          "msg-8"
+          "msg-1"
         ],
         "quotes": [
-          "The favicon is still not showing up. Why is that? What can you do to fix it?",
-          "Please fix it.",
-          "Go ahead and start and see if you can get it this time."
+          "fix the missing favicon assets and update the HTML so the favicon displays correctly.",
+          "2) Replace all",
+          "3) Update them"
         ]
       },
       "acceptanceCriteria": [
-        "`frontend/index.html` contains favicon `<link>` tags whose `href` paths resolve to existing files in `frontend/public/assets/generated/` after build.",
-        "After deployment, the favicon appears in the browser tab (after a normal refresh; if browser cache persists, it appears after a hard refresh)."
+        "`frontend/index.html` contains favicon `<link>` tags for 16x16, 32x32, Apple touch 180x180, and Android 192x192 + 512x512 that point to existing files under `/assets/generated/`.",
+        "There are no stale/duplicate favicon references that point to missing files or old filenames.",
+        "In a hard refresh (or incognito), the browser loads a favicon successfully (network requests for the favicon return 200)."
+      ]
+    },
+    {
+      "id": "REQ-15",
+      "text": "Update the favicon generation utility (`frontend/src/lib/generate-favicons.ts`) so that its output matches the selected style (pink heart on a white circular background) and remains aligned with the favicon sizes/filenames used by `frontend/index.html`.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-1"
+        ],
+        "quotes": [
+          "1) the pink heart with white circular background"
+        ]
+      },
+      "acceptanceCriteria": [
+        "`generateHeartFavicon` renders a solid white circle background and then the pink heart centered on top (not a transparent background).",
+        "`FAVICON_SIZES` continues to match the favicon filenames referenced by `frontend/index.html`.",
+        "Running the generator logic (via any existing internal tooling/workflow) produces images consistent with the checked-in assets."
       ]
     }
   ],
   "constraints": [
-    "Do not edit any files under the frontend immutable paths listed in SYSTEM_CONTEXT (e.g., `frontend/src/main.tsx`, `frontend/src/hooks/useActor.ts`, `frontend/src/hooks/useInternetIdentity.ts`, and anything under `frontend/src/components/ui`).",
-    "Backend changes are not required for this fix; keep the backend single-actor architecture unchanged."
+    "Frontend immutable paths must not be edited: `frontend/src/hooks/useInternetIdentity.ts`, `frontend/src/hooks/useInternetIdentity.tsx`, `frontend/src/hooks/useActor.ts`, `frontend/src/main.tsx`, `frontend/src/components/ui`."
   ],
   "nonGoals": [
-    "Do not add new product features unrelated to favicon display.",
-    "Do not introduce third-party services or external build pipelines for favicon generation."
+    "Add new application features unrelated to favicon display.",
+    "Change backend logic or data models (favicon fix is frontend/static assets only)."
   ],
   "imageRequirements": {
     "required": [
-      "Very simple pink heart on a transparent background (favicon-16.dim_16x16.png, 16x16)",
-      "Very simple pink heart on a transparent background (favicon-32.dim_32x32.png, 32x32)",
-      "Very simple pink heart on a transparent background (apple-touch-icon.dim_180x180.png, 180x180)",
-      "Very simple pink heart on a transparent background (android-chrome-192.dim_192x192.png, 192x192)",
-      "Very simple pink heart on a transparent background (android-chrome-512.dim_512x512.png, 512x512)"
+      "Centered pink heart on a solid white circular background (favicon-16.dim_16x16.png, 16x16)",
+      "Centered pink heart on a solid white circular background (favicon-32.dim_32x32.png, 32x32)",
+      "Centered pink heart on a solid white circular background (apple-touch-icon.dim_180x180.png, 180x180)",
+      "Centered pink heart on a solid white circular background (android-chrome-192.dim_192x192.png, 192x192)",
+      "Centered pink heart on a solid white circular background (android-chrome-512.dim_512x512.png, 512x512)"
     ],
     "edits": []
   },

@@ -1,36 +1,50 @@
 {
   "kind": "coverage_report",
   "version": "1.0",
-  "generatedAt": "2026-02-13T23:45:59.245Z",
+  "generatedAt": "2026-02-13T23:57:21.631Z",
   "sources": {
     "buildRequest": true,
     "implementationPlan": true
   },
   "requirements": {
-    "total": 2,
-    "implemented": 0,
+    "total": 3,
+    "implemented": 2,
     "items": [
       {
-        "id": "REQ-11",
-        "summary": "Add the missing favicon image files to `frontend/public/assets/generated/` using the exact filenames referenced by `frontend/index.html` so the browser can successfully load them at runtime.",
-        "status": "missing",
+        "id": "REQ-13",
+        "summary": "Regenerate a complete favicon image set that matches the app’s chosen style: a centered pink heart on a solid white circular background, exported as PNGs in all sizes referenced by `frontend/index.html`, and add them to `frontend/public/assets/generated/` using the exact filenames referenced by the HTML.",
+        "status": "implemented",
         "plannedFiles": [
           "frontend/public/assets/generated/favicon-16.dim_16x16.png",
           "frontend/public/assets/generated/favicon-32.dim_32x32.png",
           "frontend/public/assets/generated/apple-touch-icon.dim_180x180.png",
           "frontend/public/assets/generated/android-chrome-192.dim_192x192.png",
-          "frontend/public/assets/generated/android-chrome-512.dim_512x512.png"
+          "frontend/public/assets/generated/android-chrome-512.dim_512x512.png",
+          "frontend/public/favicon.ico"
         ],
-        "matchedFiles": []
+        "matchedFiles": [
+          "frontend/public/favicon.ico"
+        ]
       },
       {
-        "id": "REQ-12",
-        "summary": "Verify that `frontend/index.html` favicon `<link>` tags match the generated asset filenames and paths under `/assets/generated/`, and update `frontend/index.html` only if needed to keep the HTML references aligned with the actual files.",
+        "id": "REQ-14",
+        "summary": "Update `frontend/index.html` favicon `<link>` tags to fully match the regenerated favicon set (paths, filenames, and sizes), replacing any existing favicon link tags so browsers load the new assets correctly.",
         "status": "missing",
         "plannedFiles": [
           "frontend/index.html"
         ],
         "matchedFiles": []
+      },
+      {
+        "id": "REQ-15",
+        "summary": "Update the favicon generation utility (`frontend/src/lib/generate-favicons.ts`) so that its output matches the selected style (pink heart on a white circular background) and remains aligned with the favicon sizes/filenames used by `frontend/index.html`.",
+        "status": "implemented",
+        "plannedFiles": [
+          "frontend/src/lib/generate-favicons.ts"
+        ],
+        "matchedFiles": [
+          "frontend/src/lib/generate-favicons.ts"
+        ]
       }
     ]
   },
@@ -44,8 +58,10 @@
     "frontend/public/assets/generated/apple-touch-icon.dim_180x180.png, 180x180",
     "frontend/public/assets/generated/favicon-16.dim_16x16.png, 16x16",
     "frontend/public/assets/generated/favicon-32.dim_32x32.png, 32x32",
+    "frontend/public/favicon.ico",
     "frontend/src/blob-storage/FileStorage.ts",
     "frontend/src/blob-storage/StorageClient.ts",
+    "frontend/src/lib/generate-favicons.ts",
     "project_state.json",
     "scratch/component-selection.json",
     "spec.md",
