@@ -1,78 +1,73 @@
 {
   "kind": "implementation_plan",
   "version": "1.0",
-  "title": "Regenerate heart-on-white-circle favicons and align HTML + generator",
+  "title": "Regenerate heart-based favicon assets and align index.html references",
   "requirements": [
     {
-      "id": "REQ-13",
-      "summary": "Regenerate and check in a complete heart-on-white-circle favicon PNG set using the exact filenames referenced by the app.",
+      "id": "REQ-16",
+      "summary": "Generate and add/overwrite the full favicon PNG set from Heart.png at the exact sizes/filenames referenced by frontend/index.html.",
       "acceptanceCriteria": [
-        "The following files exist in `frontend/public/assets/generated/`: `favicon-16.dim_16x16.png`, `favicon-32.dim_32x32.png`, `apple-touch-icon.dim_180x180.png`, `android-chrome-192.dim_192x192.png`, `android-chrome-512.dim_512x512.png`.",
-        "Each generated PNG visually shows a crisp, centered pink heart on a solid white circular background (no transparent background).",
-        "Any previous/old favicon assets are removed or no longer referenced, so only the new favicon set is used by the app."
+        "`frontend/public/assets/generated/favicon-16.dim_16x16.png` exists and is 16x16.",
+        "`frontend/public/assets/generated/favicon-32.dim_32x32.png` exists and is 32x32.",
+        "`frontend/public/assets/generated/apple-touch-icon.dim_180x180.png` exists and is 180x180.",
+        "`frontend/public/assets/generated/android-chrome-192.dim_192x192.png` exists and is 192x192.",
+        "`frontend/public/assets/generated/android-chrome-512.dim_512x512.png` exists and is 512x512.",
+        "All generated icons visually match the uploaded `Heart.png` (centered heart within the circular badge) when viewed at their respective sizes."
       ],
       "file_operations": [
         {
           "path": "frontend/public/assets/generated/favicon-16.dim_16x16.png",
-          "operation": "modify",
-          "description": "Replace/regenerate the 16x16 favicon PNG so it matches the required style: centered pink heart on a solid white circular background (no transparency). Ensure this exact file path/filename is present and correct."
+          "operation": "create",
+          "description": "Generate from `Heart.png` and add/overwrite as a 16x16 PNG heart favicon under the generated assets directory."
         },
         {
           "path": "frontend/public/assets/generated/favicon-32.dim_32x32.png",
-          "operation": "modify",
-          "description": "Replace/regenerate the 32x32 favicon PNG so it matches the required style: centered pink heart on a solid white circular background (no transparency). Ensure this exact file path/filename is present and correct."
+          "operation": "create",
+          "description": "Generate from `Heart.png` and add/overwrite as a 32x32 PNG heart favicon under the generated assets directory."
         },
         {
           "path": "frontend/public/assets/generated/apple-touch-icon.dim_180x180.png",
-          "operation": "modify",
-          "description": "Replace/regenerate the 180x180 Apple touch icon PNG so it matches the required style: centered pink heart on a solid white circular background (no transparency). Ensure this exact file path/filename is present and correct."
+          "operation": "create",
+          "description": "Generate from `Heart.png` and add/overwrite as a 180x180 PNG apple touch icon under the generated assets directory."
         },
         {
           "path": "frontend/public/assets/generated/android-chrome-192.dim_192x192.png",
-          "operation": "modify",
-          "description": "Replace/regenerate the 192x192 Android icon PNG so it matches the required style: centered pink heart on a solid white circular background (no transparency). Ensure this exact file path/filename is present and correct."
+          "operation": "create",
+          "description": "Generate from `Heart.png` and add/overwrite as a 192x192 PNG android chrome icon under the generated assets directory."
         },
         {
           "path": "frontend/public/assets/generated/android-chrome-512.dim_512x512.png",
-          "operation": "modify",
-          "description": "Replace/regenerate the 512x512 Android icon PNG so it matches the required style: centered pink heart on a solid white circular background (no transparency). Ensure this exact file path/filename is present and correct."
-        },
-        {
-          "path": "frontend/public/favicon.ico",
-          "operation": "delete",
-          "description": "If present, remove any legacy root favicon file so it cannot be preferred by browsers over the new generated set; ensure the app only relies on `/assets/generated/*` references."
+          "operation": "create",
+          "description": "Generate from `Heart.png` and add/overwrite as a 512x512 PNG android chrome icon under the generated assets directory."
         }
       ]
     },
     {
-      "id": "REQ-14",
-      "summary": "Replace favicon link tags in frontend/index.html so all referenced favicon assets exist and match the regenerated set.",
+      "id": "REQ-17",
+      "summary": "Ensure frontend/index.html favicon link tags exactly match the generated /assets/generated filenames and sizes so references resolve at runtime.",
       "acceptanceCriteria": [
-        "`frontend/index.html` contains favicon `<link>` tags for 16x16, 32x32, Apple touch 180x180, and Android 192x192 + 512x512 that point to existing files under `/assets/generated/`.",
-        "There are no stale/duplicate favicon references that point to missing files or old filenames.",
-        "In a hard refresh (or incognito), the browser loads a favicon successfully (network requests for the favicon return 200)."
+        "The following references in `frontend/index.html` resolve to existing files in `frontend/public/assets/generated/`: `/assets/generated/favicon-16.dim_16x16.png`, `/assets/generated/favicon-32.dim_32x32.png`, `/assets/generated/apple-touch-icon.dim_180x180.png`, `/assets/generated/android-chrome-192.dim_192x192.png`, `/assets/generated/android-chrome-512.dim_512x512.png`."
       ],
       "file_operations": [
         {
           "path": "frontend/index.html",
           "operation": "modify",
-          "description": "Ensure the favicon `<link>` tags are fully aligned to the regenerated assets under `/assets/generated/` and replace/remove any stale or duplicate favicon references so only these are used: `/assets/generated/favicon-16.dim_16x16.png`, `/assets/generated/favicon-32.dim_32x32.png`, `/assets/generated/apple-touch-icon.dim_180x180.png`, `/assets/generated/android-chrome-192.dim_192x192.png`, `/assets/generated/android-chrome-512.dim_512x512.png`."
+          "description": "Verify favicon <link> tags (href paths, filenames, and sizes attributes) align exactly with the generated files under `frontend/public/assets/generated/`; update only if any mismatch exists."
         }
       ]
     },
     {
-      "id": "REQ-15",
-      "summary": "Update the favicon generator utility to produce the required heart-on-white-circle style and keep sizes/filenames aligned with index.html.",
+      "id": "REQ-18",
+      "summary": "Replace the root /favicon.ico with an .ico generated from Heart.png so browsers requesting /favicon.ico display the correct heart icon.",
       "acceptanceCriteria": [
-        "`generateHeartFavicon` renders a solid white circle background and then the pink heart centered on top (not a transparent background).",
-        "`FAVICON_SIZES` continues to match the favicon filenames referenced by `frontend/index.html`.",
-        "Running the generator logic (via any existing internal tooling/workflow) produces images consistent with the checked-in assets."
+        "`frontend/public/favicon.ico` is updated and contains the heart-based favicon (not the previous placeholder).",
+        "Loading `/favicon.ico` in the browser displays the heart icon."
       ],
       "file_operations": [
         {
-          "path": "frontend/src/lib/generate-favicons.ts",
+          "path": "frontend/public/favicon.ico",
           "operation": "modify",
-          "description": "Update `generateHeartFavicon` to draw a non-transparent background that matches the selected style (solid white circular background, then centered pink heart). Keep `FAVICON_SIZES` aligned with the favicon filenames/sizes referenced by `frontend/index.html`."
+          "description": "Regenerate and replace the existing ICO using `Heart.png` as the source (include common ICO sizes so it renders well across browsers) and overwrite the file at this path."
         }
       ]
     }

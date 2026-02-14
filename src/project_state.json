@@ -1,18 +1,19 @@
 {
   "schemaVersion": "1.0.0",
-  "projectStateVersion": 15,
-  "summary": "Fix favicon not displaying in now-live Version 55 by regenerating a favicon set using the pink heart on a white circular background at standard sizes, replacing all existing favicon assets, and updating `frontend/index.html` `<link>` tags/filenames so the referenced files exist under `/assets/generated/` (or `frontend/public/assets/generated/`) and browsers can load them.",
+  "projectStateVersion": 17,
+  "summary": "Fix favicon not displaying by regenerating a complete favicon set from the user-provided uploaded heart image (pink heart on white circular background), replacing all existing favicon assets, and updating `frontend/index.html` `<link>` tags/filenames so the referenced files exist under `/assets/generated/` (or `frontend/public/assets/generated/`) and browsers can load them.",
   "architectural_notes": [
     "Favicon integration depends on generated favicon image files being present in the project (expected under `/assets/generated/`) to match the `<link>` tags in `frontend/index.html`. Regenerate and add missing favicon assets so browsers can load them.",
     "Decision: Use the pink heart on a white circular background for favicon assets going forward; replace all existing favicon assets and update HTML filenames/paths to match the regenerated set.",
-    "Deployment decision: Version 55 has been released to production (replacing Version 54)."
+    "Deployment decision: Version 55 has been released to production (replacing Version 54).",
+    "Decision: Use the user-uploaded heart image as the canonical source to generate all favicon sizes for the app."
   ],
   "known_issues": [
     "Favicon not displaying because referenced favicon image files are missing from the project (no generated favicon assets found in expected locations such as `/assets/generated/`).",
     "After releasing Version 55, the favicon still may not appear until the regenerated favicon assets (heart on white circle) are present and `frontend/index.html` references are updated to match."
   ],
   "isFixRequest": true,
-  "imageRequirements": "## Required Images\n- Centered pink heart on a solid white circular background (favicon-16.dim_16x16.png, 16x16)\n- Centered pink heart on a solid white circular background (favicon-32.dim_32x32.png, 32x32)\n- Centered pink heart on a solid white circular background (apple-touch-icon.dim_180x180.png, 180x180)\n- Centered pink heart on a solid white circular background (android-chrome-192.dim_192x192.png, 192x192)\n- Centered pink heart on a solid white circular background (android-chrome-512.dim_512x512.png, 512x512)",
+  "imageRequirements": "## Required Images\n- Heart favicon (white circular badge with centered pink heart) (favicon-16.dim_16x16.png, 16x16)\n- Heart favicon (white circular badge with centered pink heart) (favicon-32.dim_32x32.png, 32x32)\n- Heart favicon (white circular badge with centered pink heart) (apple-touch-icon.dim_180x180.png, 180x180)\n- Heart favicon (white circular badge with centered pink heart) (android-chrome-192.dim_192x192.png, 192x192)\n- Heart favicon (white circular badge with centered pink heart) (android-chrome-512.dim_512x512.png, 512x512)",
   "existing_features": [
     {
       "id": "feature-generate-favicon-image-assets-that-visually-match-the-app-s-existing-heart-icon-style-a-centered-pink-heart-on-a-white-circular-background",
@@ -129,6 +130,36 @@
       "summary": "Update `frontend/index.html` favicon `<link>` tags to fully match the regenerated favicon set (paths, filenames, and sizes), replacing any existing favicon link tags so browsers load the new assets correctly.",
       "reqIds": [
         "REQ-14"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "AR-15",
+      "summary": "Regenerate the full favicon image set using the user-uploaded heart image as the source and update `frontend/index.html` to reference the resulting assets so the favicon displays correctly.",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-16",
+      "summary": "Generate a complete favicon PNG asset set from the user-uploaded image `Heart.png`, exporting each favicon at the exact sizes and filenames referenced by `frontend/index.html`, and add/overwrite the files under `frontend/public/assets/generated/`.",
+      "reqIds": [
+        "REQ-16"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "AR-17",
+      "summary": "Ensure `frontend/index.html` favicon `<link>` tags (paths, filenames, and sizes) exactly match the generated assets under `/assets/generated/` so the browser can load them at runtime; update `frontend/index.html` only if needed to keep it aligned with the generated filenames.",
+      "reqIds": [
+        "REQ-17"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "AR-18",
+      "summary": "Replace the root favicon file `frontend/public/favicon.ico` with an `.ico` generated from the same uploaded `Heart.png` source so browsers that request `/favicon.ico` also display the correct icon.",
+      "reqIds": [
+        "REQ-18"
       ],
       "status": "pending"
     }

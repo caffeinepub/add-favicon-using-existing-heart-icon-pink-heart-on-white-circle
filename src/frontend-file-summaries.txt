@@ -22,5 +22,11 @@
   "frontend/src/blob-storage/FileStorage.ts": "Deleted (depends on missing backend blob storage methods)",
   "frontend/src/blob-storage/StorageClient.ts": "Deleted (depends on missing backend blob storage methods)",
   "frontend/public/assets/generated/favicon-generator.html": "Standalone HTML tool that generates all required pink heart favicon PNG files using Canvas API, with preview and download functionality for all sizes (16x16, 32x32, 180x180, 192x192, 512x512).",
-  "frontend/src/lib/generate-favicons.ts": "TypeScript utility module that programmatically generates pink heart favicon images at various sizes using Canvas API with a solid white circular background, and provides download functionality."
+  "frontend/src/lib/generate-favicons.ts": "TypeScript utility module that programmatically generates pink heart favicon images at various sizes using Canvas API with a solid white circular background, and provides download functionality.",
+  "frontend/public/assets/generated/favicon-16.dim_16x16.png": "16×16 pixel PNG favicon generated from the uploaded pink heart icon",
+  "frontend/public/assets/generated/favicon-32.dim_32x32.png": "32×32 pixel PNG favicon generated from the uploaded pink heart icon",
+  "frontend/public/assets/generated/apple-touch-icon.dim_180x180.png": "180×180 pixel PNG Apple touch icon generated from the uploaded pink heart icon",
+  "frontend/public/assets/generated/android-chrome-192.dim_192x192.png": "192×192 pixel PNG Android Chrome icon generated from the uploaded pink heart icon",
+  "frontend/public/assets/generated/android-chrome-512.dim_512x512.png": "512×512 pixel PNG Android Chrome icon generated from the uploaded pink heart icon",
+  "frontend/public/favicon.ico": "Multi-resolution ICO file (16×16, 32×32, 48×48) generated from the uploaded pink heart icon for maximum browser compatibility"
 }

@@ -1,11 +1,11 @@
 # Specification
 
 ## Summary
-**Goal:** Fix the missing favicon by regenerating a complete “pink heart on solid white circle” favicon set and ensuring `frontend/index.html` links match the generated filenames and paths.
+**Goal:** Regenerate the app’s favicon set from the uploaded `Heart.png` and ensure `frontend/index.html` references resolve to the generated assets.
 
 **Planned changes:**
-- Regenerate the full favicon PNG set (16x16, 32x32, 180x180, 192x192, 512x512) in `frontend/public/assets/generated/` using the exact filenames referenced by `frontend/index.html`.
-- Update `frontend/index.html` to replace existing favicon `<link>` tags so they correctly reference the regenerated assets under `/assets/generated/` (no stale/duplicate references).
-- Update `frontend/src/lib/generate-favicons.ts` so `generateHeartFavicon` renders a solid white circular background with a centered pink heart (not transparent) and keeps sizes/filenames aligned with the HTML.
+- Generate/overwrite the favicon PNG assets from `Heart.png` at the exact filenames and sizes used by `frontend/index.html`, placing them under `frontend/public/assets/generated/`.
+- Update `frontend/index.html` favicon `<link>` tags only if needed so paths, filenames, and sizes exactly match the generated assets under `/assets/generated/`.
+- Replace `frontend/public/favicon.ico` with an `.ico` generated from `Heart.png` so requests to `/favicon.ico` show the heart icon.
 
-**User-visible outcome:** After a hard refresh, the browser loads and displays the correct favicon consistently across supported sizes/devices.
+**User-visible outcome:** Browsers display the heart-based favicon across tabs, bookmarks, and mobile home screen icons, with all favicon links loading correctly at runtime.
